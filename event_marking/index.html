@@ -179,7 +179,7 @@
                      color = experimentData.currentMarkerPair[0].color;
                    } else {
                      let nMarkers = slider._bookmarks.counter;
-                     let h = (nMarkers*37)%360;
+                     let h = ((nMarkers+1)*37)%360;
                      color = 'hsla(' + h.toString() + ', 50%, 50%,0.7)';
                    }
                    let id = slider.addBookmark(color);
@@ -606,7 +606,7 @@
                        let filePath = "";
                        if(i < 4) filePath = "NA";
                        else filePath = experimentData.currentMovie + "/" + (i - 4) * 6 + ".png ";
-                       experimentData.slideshow_data.push({'filePath' : filePath, 'frame' : i-4, 'requested_onset':null, 'onset_call' : null, 'rt': null, 'fullscreen':0});
+                       experimentData.slideshow_data.push({'WorkerID':experimentData.turkID, 'filePath' : filePath, 'frame' : i-4, 'requested_onset':null, 'onset_call' : null, 'rt': null, 'fullscreen':0});
                    }
                }
 
@@ -622,7 +622,7 @@
                    } else if (experimentData.currentPhase === "slideshow_2"){
                         let post_data = new PostData(experimentData.dataURL);
                         post_data.post(JSON.stringify({'turkID' : experimentData.turkID, 'data_type' : experimentData.currentPhase, 'data_content': experimentData.slideshow_data}));
-                        
+                        console.log(experimentData.slideshow_data)
                         appState = 7;
                         experimentData.currentPhase = "recollection_2";
                    }
@@ -883,7 +883,7 @@
                             first_frame = second_frame;
                             second_frame = temp;
                         }
-                       let row_data = {'filePath': experimentData.testMovie + "/" + i * 6 + ".png", 'trial' : (i+1), 'first_id' : first.toString(), 'second_id' : second.toString(), 'first_frame' : first_frame, 'second_frame': second_frame};
+                       let row_data = {'WorkerID': experimentData.turkID, 'trial' : (i+1), 'first_id' : first.toString(), 'second_id' : second.toString(), 'first_frame' : first_frame, 'second_frame': second_frame};
                        marker_data.push(row_data);
                    }
 
